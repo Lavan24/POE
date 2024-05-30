@@ -19,8 +19,8 @@ jobs:
         run: >-
           javac -cp
           "../testresource/junit-platform-console-standalone-1.6.0.jar"
-          "./POE/Login.java" "./ POE/RegisterAndLogin.java" "./POE/Task.java"
-          "../test/ POE/LoginTest.java" "../test/ POE/TaskTest.java"
+          ".POE/POE/Login.java" ".POE/POE/RegisterAndLogin.java" ".POE/POE/Task.java"
+          "../test/POE/LoginTest.java" "../test/POE/TaskTest.java"
       - name: List contents of src directory after compile
         working-directory: ./src/POE
         run: ls
@@ -28,7 +28,7 @@ jobs:
         run: mkdir -p ./testresource/POE
       - name: copy compiled classes to testresource directory
         working-directory: ./src/POE
-        run: cp -t  "../../test/POE " Login.class RegisterAndLogin.class
+        run: cp -t  "../../test/POE " Login.class RegisterAndLogin.class Task.class
       - name: copy compiled Test classes to testresource directory
         working-directory: ./test/POE
         run: cp -t  "../../testresource/POE" LoginTest.class TaskTest.class
