@@ -18,21 +18,21 @@ jobs:
         working-directory: ./src
         run: >-
           javac -cp
-          ".../testResource/junit-platform-console-standalone-1.6.0.jar"
-          "./POE/src/POE/Login.java" "./POE/src/POE/Task.java"
-          
+          "../testresources/junit-platform-console-standalone-1.6.0.jar"
+          "./packageName/FirstFile.java" "./ packageName/SecondFile.java"
+          "../test/ packageName/TestFile.java"
       - name: List contents of src directory after compile
-        working-directory: ./src/POE
+        working-directory: ./src/packageName
         run: ls
-        
-      - name: copy compiled classes to testResources directory
-        working-directory: ./src/POE
-        run: cp -t  "../../test/POE" Login.class Task.class
-        
-      - name: copy compiled Test classes to testResources directory
-        working-directory: ./test/POE
-        run: cp -t  "../../test/" Login.class Task.class
-        
+      - name: create testresources/packageName directory
+        run: mkdir -p ./testresources/packageName
+      - name: copy compiled classes to testresources directory
+        working-directory: ./src/packageName
+        run: cp -t  "../../test/packageName " FirstClass.class SecondClass.class
+      - name: copy compiled Test classes to testresources directory
+        working-directory: ./test/packageName
+        run: cp -t  "../../testresources/packageName" TestClass.class
       - name: List contents test package
-        working-directory: ./test/POE
+        working-directory: ./test/packageName
         run: ls
+
