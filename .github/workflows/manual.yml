@@ -1,0 +1,38 @@
+name: Workflow
+'on':
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: null
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: List contents
+        run: ls
+      - name: compile classes
+        working-directory: ./src
+        run: >-
+          javac -cp
+          "../testResource/junit-platform-console-standalone-1.6.0.jar"
+          "./POE/Login.java" "./POE/Task.java"
+          
+      - name: List contents of src directory after compile
+        working-directory: ./src/POE
+        run: ls
+        
+      - name: copy compiled classes to testResources directory
+        working-directory: ./src/POE
+        run: cp -t  "../../test/POE" Login.class Task.class
+        
+      - name: copy compiled Test classes to testResources directory
+        working-directory: ./test/POE
+        run: cp -t  "../../test/" Login.class Task.class
+        
+      - name: List contents test package
+        working-directory: ./test/POE
+        run: ls
