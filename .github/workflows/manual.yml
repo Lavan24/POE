@@ -19,8 +19,8 @@ jobs:
         run: >-
           javac -cp
           "../testresource/junit-platform-console-standalone-1.6.0.jar"
-          ".POE/POE/Login.java" ".POE/POE/RegisterAndLogin.java" ".POE/POE/Task.java"
-          "../test/POE/LoginTest.java" "../test/POE/TaskTest.java"
+          "..POE/POE/Login.java" "..POE/POE/RegisterAndLogin.java" "..POE/POE/Task.java"
+          ".../test/POE/LoginTest.java" ".../test/POE/TaskTest.java"
       - name: List contents of src directory after compile
         working-directory: ./src/POE
         run: ls
