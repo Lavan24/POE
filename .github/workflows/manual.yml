@@ -1,19 +1,39 @@
-name: Java CI
-
-on:
-push:
-branches: [ "main" ]
-pull_request:
-- branches: [ "main" ]
-
+name: Workflow
+'on':
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: null
 jobs:
-build:
-runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: List contents
+        run: ls
+      - name: compile classes
+        working-directory: ./src
+        run: >-
+          javac -cp
+          "../testresource/junit-platform-console-standalone-1.6.0.jar"
+          "./POE/Login.java" "./ POE/RegisterAndLogin.java" "./POE/Task.java"
+          "../test/ POE/LoginTest.java" "../test/ POE/TaskTest.java"
+      - name: List contents of src directory after compile
+        working-directory: ./src/POE
+        run: ls
+      - name: create testresource/POE directory
+        run: mkdir -p ./testresource/POE
+      - name: copy compiled classes to testresource directory
+        working-directory: ./src/POE
+        run: cp -t  "../../test/POE " Login.class RegisterAndLogin.class
+      - name: copy compiled Test classes to testresource directory
+        working-directory: ./test/POE
+        run: cp -t  "../../testresource/POE" LoginTest.class TaskTest.class
+      - name: List contents test package
+        working-directory: ./test/POE
+        run: ls
 
-steps:
-- uses: actions/checkout@v4
-- name: Set up JDK 21
-uses: actions/setup-java@v3
-with:
-java-version: '21'
-distribution: 'temurin'
+
